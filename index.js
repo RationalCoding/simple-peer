@@ -284,32 +284,31 @@ Peer.prototype._destroy = function (err, cb) {
     self._channel.onclose = null
     self._channel.onerror = null
   }
+  if (self._pc) {
+    try {
+      self._pc.close()
+    } catch (err) {
+      throw err
+    }
+
+    self._pc.oniceconnectionstatechange = null
+    self._pc.onicegatheringstatechange = null
+    self._pc.onsignalingstatechange = null
+    self._pc.onicecandidate = null
+    if ('addTrack' in self._pc) {
+      self._pc.ontrack = null
+    } else {
+      self._pc.onaddstream = null
+    }
+    self._pc.onnegotiationneeded = null
+    self._pc.ondatachannel = null
+  }
+  self._pc = null
   self._channel = null
 
   if (err) self.emit('error', err)
   self.emit('close')
   cb()
-}
-
-if (self._pc) {
-  try {
-    self._pc.close()
-  } catch (err) {
-    throw err
-  }
-
-  self._pc.oniceconnectionstatechange = null
-  self._pc.onicegatheringstatechange = null
-  self._pc.onsignalingstatechange = null
-  self._pc.onicecandidate = null
-  if ('addTrack' in self._pc) {
-    self._pc.ontrack = null
-  } else {
-    self._pc.onaddstream = null
-  }
-  self._pc.onnegotiationneeded = null
-  self._pc.ondatachannel = null
-  self._pc = null
 }
 
 Peer.prototype._setupData = function (event) {
