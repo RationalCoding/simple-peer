@@ -291,8 +291,11 @@ Peer.prototype._destroy = function (err, cb) {
 
   if (self._channel) {
     try {
+      self._debug('closing channel')
       self._channel.close()
-    } catch (err) {}
+    } catch (err) {
+      throw err
+    }
 
     self._channel.onmessage = null
     self._channel.onopen = null
