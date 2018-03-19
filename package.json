@@ -57,7 +57,7 @@
   },
   "scripts": {
     "build": "browserify -s SimplePeer -r ./ | uglifyjs -m > simplepeer.min.js",
-    "test": "standard && npm run test-node && npm run test-browser",
+    "test": "standard && npm run test-node",
     "test-browser": "airtap -- test/*.js",
     "test-browser-local": "airtap --local -- test/*.js",
     "test-node": "npm run test-node-electron-webrtc && npm run test-node-wrtc",
