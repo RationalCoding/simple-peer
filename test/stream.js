@@ -20,6 +20,9 @@ test('duplex stream: send data before "connect" event', function (t) {
   peer1.on('signal', function (data) { if (!peer2.destroyed) peer2.signal(data) })
   peer2.on('signal', function (data) { if (!peer1.destroyed) peer1.signal(data) })
 
+  peer1._debug = console.log
+  peer2._debug = console.log
+
   str('abc').pipe(peer1)
 
   peer1.on('data', function () {
