@@ -730,6 +730,7 @@ Peer.prototype._onChannelOpen = function () {
 
 Peer.prototype._onChannelClose = function () {
   var self = this
+  self._debug('pre - on channel close')
   if (self.destroyed) return
   self._debug('on channel close')
   self.destroy()
