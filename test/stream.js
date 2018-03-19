@@ -60,6 +60,9 @@ test('duplex stream: send data one-way', function (t) {
   peer1.on('connect', tryTest)
   peer2.on('connect', tryTest)
 
+  peer1._debug = console.log
+  peer2._debug = console.log
+
   function tryTest () {
     if (!peer1.connected || !peer2.connected) return
 
