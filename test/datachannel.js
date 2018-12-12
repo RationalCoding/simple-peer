@@ -1,6 +1,6 @@
 var common = require('./common')
 var Peer = require('../')
-var DataChannel = require('../datachannel')
+var DataChannel = require('../src/datachannel/stream')
 var str = require('string-to-stream')
 var test = require('tape')
 var bowser = require('bowser')

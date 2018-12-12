@@ -28,7 +28,7 @@
 This module works in the browser with [browserify](http://browserify.org/).
 
 **Note:** If you're **NOT** using browserify, then use the included standalone file
-`simplepeer.min.js`. This exports a `SimplePeer` constructor on `window`. Wherever
+`dist/simplepeer.min.js`. This exports a `SimplePeer` constructor on `window`. Wherever
 you see `Peer` in the examples below, substitute that with `SimplePeer`.
 
 ## install
@@ -527,6 +527,15 @@ the same contract. It will potentially buffer the data and call
 `channel.send()` at a future point in time, so definitely don't assume it's
 safe to mutate the buffer.
 
+## lite version
+A smaller bundle of `simple-peer` without stream functionality is available.
+This version does not include any data stream functionality such as `.write()`,
+`on('end')`, `on('finish')`, buffering, or backpressure handling.
+Use it at your own discretion.
+
+```javascript
+var SimplePeerLite = require('simple-peer/lite')
+```
 
 ## connection does not work on some networks?
 

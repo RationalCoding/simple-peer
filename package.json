@@ -14,8 +14,8 @@
     "debug": "^4.0.1",
     "get-browser-rtc": "^1.0.0",
     "inherits": "^2.0.1",
-    "randombytes": "^2.0.3",
-    "readable-stream": "^2.3.4"
+    "readable-stream": "^2.3.4",
+    "tiny-emitter": "^2.0.2"
   },
   "devDependencies": {
     "airtap": "0.1.0",
@@ -57,9 +57,12 @@
     "url": "git://github.com/feross/simple-peer.git"
   },
   "scripts": {
-    "build": "browserify -s SimplePeer -r ./ | minify > simplepeer.min.js",
-    "size": "npm run build && cat simplepeer.min.js | gzip | wc -c",
-    "test": "standard && npm run test-node && npm run test-browser",
+    "build": "npm run build-debug && npm run build-stream && npm run build-lite",
+    "build-debug": "node browserify.js > dist/simplepeer.js",
+    "build-stream": "PRODUCTION=1 node browserify.js > dist/simplepeer.min.js",
+    "build-lite": "PRODUCTION=1 LITE=1 node browserify.js > dist/simplepeer-lite.min.js",
+    "size": "npm run build && cat simplepeer-lite.min.js | gzip | wc -c",
+    "test": "standard src/** lite.js index.js test/** && npm run test-node && npm run test-browser",
     "test-browser": "airtap --coverage -- test/*.js",
     "test-browser-local": "airtap --coverage --local -- test/*.js",
     "test-node": "npm run test-node-electron-webrtc && npm run test-node-wrtc",
